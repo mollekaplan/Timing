@@ -520,7 +520,7 @@ c6.SaveAs("AK8nopu_loose.root")
 
 ##c7##
 c7 = c1.DrawClone()
-c7.setLogy()
+c7.SetLogy()
 c7.SetYTitle("Log(njets)")
 c7.Draw()
 
@@ -534,7 +534,7 @@ c7.SaveAs("puppinopu_tight_log.root")
 
 ##c8##
 c8 = c2.DrawClone()
-c8.setLogy()
+c8.SetLogy()
 c8.SetYTitle("Log(njets)")
 c8.Draw()
 
@@ -548,7 +548,7 @@ c8.SaveAs("chsnopu_tight_log.root")
 
 ##c9##
 c9 = c4.DrawClone()
-c9.setLogy()
+c9.SetLogy()
 c9.SetYTitle("Log(njets)")
 c9.Draw()
 
@@ -562,7 +562,7 @@ c9.SaveAs("puppinopu_loose_log.root")
 
 ##c10##
 c10 = c5.DrawClone()
-c10.setLogy()
+c10.SetLogy()
 c10.SetYTitle("Log(njets)")
 c10.Draw()
 

@@ -182,6 +182,10 @@ labelgenjetAK8 = "slimmedGenJetsAK8"
 #ROOT.gROOT.SetStyle('Plain') # white background
 #ROOT.gStyle.SetOptStat(0);
 
+njetstiming = ROOT.TH1D("njetstiming","Number of Jets, No Pileup",100,0,100)
+njetsnotiming = ROOT.TH1D("njetsnotiming","Number of Jets, No Pileup",100,0,100)
+njetsnotiming.SetLineColor(ROOT.kRed)
+
 npuppijetstiming = ROOT.TH1D("npuppijetstiming","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming = ROOT.TH1D("npuppijetsnotiming","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming.SetLineColor(ROOT.kRed)
@@ -194,6 +198,10 @@ nAK8jetstiming = ROOT.TH1D("nAK8jetstiming","Number of AK8 Jets, No Pileup",10,0
 nAK8jetsnotiming = ROOT.TH1D("nAK8jetsnotiming","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming.SetLineColor(ROOT.kRed)
 
+njetstiming2 = ROOT.TH1D("njetstiming2","Number of Jets, No Pileup",100,0,100)
+njetsnotiming2 = ROOT.TH1D("njetsnotiming2","Number of Jets, No Pileup",100,0,100)
+njetsnotiming2.SetLineColor(ROOT.kRed)
+
 npuppijetstiming2 = ROOT.TH1D("npuppijetstiming2","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming2 = ROOT.TH1D("npuppijetsnotiming2","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming2.SetLineColor(ROOT.kRed)
@@ -205,6 +213,10 @@ nchsjetsnotiming2.SetLineColor(ROOT.kRed)
 nAK8jetstiming2 = ROOT.TH1D("nAK8jetstiming2","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming2 = ROOT.TH1D("nAK8jetsnotiming2","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming2.SetLineColor(ROOT.kRed)
+
+chsjetspttiming = ROOT.TH1D("chsjetspttiming","CHS Jets PT",100,0,100)
+chsjetsptnotiming = ROOT.TH1D("chsjetsptnotiming","CHS Jets PT",100,0,100)
+chsjetsptnotiming.SetLineColor(ROOT.kRed)
 
 maxevt = 5000
 
@@ -256,6 +268,8 @@ for event in events:
         if len(mugenjets)==2:
             break
 
+    njets = 0
+    njets2 = 0
 
     npuppi=0
     npuppi2=0
@@ -263,10 +277,14 @@ for event in events:
         mugenjet = matchgenjetloose(jet,mugenjets)
 	if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
+		njets += 1
     npuppijetstiming.Fill(npuppi)
     npuppijetstiming2.Fill(npuppi2)
+    njetstiming.Fill(njets)
+    njetstiming2.Fill(njets2)
 
     nchs=0
     nchs2=0
@@ -274,10 +292,15 @@ for event in events:
         mugenjet = matchgenjetloose(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
 	    nchs2 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nchs += 1
+	        njets += 1
+		chsjetspttiming.Fill(jet.pt())
     nchsjetstiming.Fill(nchs)
     nchsjetstiming2.Fill(nchs2)
+    njetstiming.Fill(njets)
+    njetstiming2.Fill(njets2)
 
     nAK8=0
     nAK82=0
@@ -285,10 +308,14 @@ for event in events:
         mugenjet = matchgenjetloose(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
+		njets += 1
     nAK8jetstiming.Fill(nAK8)
     nAK8jetstiming2.Fill(nAK82)
+    njetstiming.Fill(njets)
+    njetstiming2.Fill(njets2)
 
     ievt += 1
     if ievt==maxevt:
@@ -347,17 +374,23 @@ for event in events2:
         if len(mugenjets)==2:
             break
 
-    
+    njets = 0
+    njets2 = 0    
+
     npuppi=0
     npuppi2=0
     for jet in puppijets:
         mugenjet = matchgenjetloose(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
+		njets += 1
     npuppijetsnotiming.Fill(npuppi)
     npuppijetsnotiming2.Fill(npuppi2)
+    njetsnotiming.Fill(njets)
+    njetsnotiming2.Fill(njets2)
 
     nchs=0
     nchs2=0
@@ -365,10 +398,15 @@ for event in events2:
         mugenjet = matchgenjetloose(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nchs2 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nchs += 1
+	        njets += 1
+		chsjetsptnotiming.Fill(jet.pt())
     nchsjetsnotiming.Fill(nchs)
     nchsjetsnotiming2.Fill(nchs2)
+    njetsnotiming.Fill(njets)
+    njetsnotiming2.Fill(njets2)
     
     nAK8=0
     nAK82=0
@@ -376,10 +414,14 @@ for event in events2:
         mugenjet = matchgenjetloose(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
+	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
+		njets += 1
     nAK8jetsnotiming.Fill(nAK8)
     nAK8jetsnotiming2.Fill(nAK82)
+    njetsnotiming.Fill(njets)
+    njetsnotiming2.Fill(njets2)
 
 
 
@@ -396,42 +438,79 @@ for event in events2:
 #nAK8jetsnotiming2.Scale(1./float(ievt))
 
 
-####FIX PLOTS for jet counting
+####Make canvases and plots
 c1 = ROOT.TCanvas()
-npuppijetsnotiming.Draw("HIST")
-npuppijetstiming.Draw("HISTSAME")
+npuppijetstiming.Draw("HIST")
+npuppijetsnotiming.Draw("HISTSAME")
+
+c2 = ROOT.TCanvas()
+nchsjetstiming.Draw("HIST")
+nchsjetsnotiming.Draw("HISTSAME")
+
+c3 = ROOT.TCanvas()
+nAK8jetstiming.Draw("HIST")
+nAK8jetsnotiming.Draw("HISTSAME")
+
+c4 = ROOT.TCanvas()
+npuppijetstiming2.Draw("HIST")
+npuppijetsnotiming2.Draw("HISTSAME")
+
+c5 = ROOT.TCanvas()
+nchsjetstiming2.Draw("HIST")
+nchsjetsnotiming2.Draw("HISTSAME")
+
+c6 = ROOT.TCanvas()
+nAK8jetstiming2.Draw("HIST")
+nAK8jetsnotiming2.Draw("HISTSAME")
+
+c7 = c1.DrawClone()
+c7.setLogy()
+
+c8 = c2.DrawClone()
+c8.setLogy()
+
+c9 = c4.DrawClone()
+c9.setLogy()
+
+c10 = c5.DrawClone()
+c10.setLogy()
+
+#####Make legend
+leg = ROOT.TLegend(0.7,.5,.89,.85)
+leg.AddEntry( h0,"timing","L")
+leg.AddEntry( h1,"no-timing","L")
+leg.Draw()
+
+#####Save plots
 c1.SaveAs("puppinopu_tight.pdf")
 c1.SaveAs("puppinopu_tight.root")
 
-c2 = ROOT.TCanvas()
-nchsjetsnotiming.Draw("HIST")
-nchsjetstiming.Draw("HISTSAME")
 c2.SaveAs("chsnopu_tight.pdf")
 c2.SaveAs("chsnopu_tight.root")
 
-c3 = ROOT.TCanvas()
-nAK8jetsnotiming.Draw("HIST")
-nAK8jetstiming.Draw("HISTSAME")
 c3.SaveAs("AK8nopu_tight.pdf")
 c3.SaveAs("AK8nopu_tight.root")
 
-c4 = ROOT.TCanvas()
-npuppijetsnotiming2.Draw("HIST")
-npuppijetstiming2.Draw("HISTSAME")
 c4.SaveAs("puppinopu_loose.pdf")
 c4.SaveAs("puppinopu_loose.root")
 
-c5 = ROOT.TCanvas()
-nchsjetsnotiming2.Draw("HIST")
-nchsjetstiming2.Draw("HISTSAME")
 c5.SaveAs("chsnopu_loose.pdf")
 c5.SaveAs("chsnopu_loose.root")
 
-c6 = ROOT.TCanvas()
-nAK8jetsnotiming2.Draw("HIST")
-nAK8jetstiming2.Draw("HISTSAME")
 c6.SaveAs("AK8nopu_loose.pdf")
 c6.SaveAs("AK8nopu_loose.root")
+
+c7.SaveAs("puppinopu_tight_log.pdf")
+c7.SaveAs("puppinopu_tight_log.root")
+
+c8.SaveAs("chsnopu_tight_log.pdf")
+c8.SaveAs("chsnopu_tight_log.root")
+
+c9.SaveAs("puppinopu_loose_log.pdf")
+c9.SaveAs("puppinopu_loose_log.root")
+
+c10.SaveAs("chsnopu_loose_log.pdf")
+c10.SaveAs("chsnopu_loose_log.root")
 
 
 input("Press Enter to continue...")

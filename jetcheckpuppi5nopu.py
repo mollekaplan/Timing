@@ -438,79 +438,136 @@ for event in events2:
 #nAK8jetsnotiming2.Scale(1./float(ievt))
 
 
-####Make canvases and plots
+####Make canvases and save the plots####
+
+##c1##
 c1 = ROOT.TCanvas()
 npuppijetstiming.Draw("HIST")
 npuppijetsnotiming.Draw("HISTSAME")
 
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(npuppijetstiming,"timing","L")
+leg1.AddEntry(npuppijetsnotiming,"no-timing","L")
+leg1.Draw()
+
+c1.SaveAs("puppinopu_tight.pdf")
+c1.SaveAs("puppinopu_tight.root")
+
+##c2##
 c2 = ROOT.TCanvas()
 nchsjetstiming.Draw("HIST")
 nchsjetsnotiming.Draw("HISTSAME")
 
-c3 = ROOT.TCanvas()
-nAK8jetstiming.Draw("HIST")
-nAK8jetsnotiming.Draw("HISTSAME")
-
-c4 = ROOT.TCanvas()
-npuppijetstiming2.Draw("HIST")
-npuppijetsnotiming2.Draw("HISTSAME")
-
-c5 = ROOT.TCanvas()
-nchsjetstiming2.Draw("HIST")
-nchsjetsnotiming2.Draw("HISTSAME")
-
-c6 = ROOT.TCanvas()
-nAK8jetstiming2.Draw("HIST")
-nAK8jetsnotiming2.Draw("HISTSAME")
-
-c7 = c1.DrawClone()
-c7.setLogy()
-
-c8 = c2.DrawClone()
-c8.setLogy()
-
-c9 = c4.DrawClone()
-c9.setLogy()
-
-c10 = c5.DrawClone()
-c10.setLogy()
-
-#####Make legend
-leg = ROOT.TLegend(0.7,.5,.89,.85)
-leg.AddEntry( h0,"timing","L")
-leg.AddEntry( h1,"no-timing","L")
-leg.Draw()
-
-#####Save plots
-c1.SaveAs("puppinopu_tight.pdf")
-c1.SaveAs("puppinopu_tight.root")
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nchsjetstiming,"timing","L")
+leg1.AddEntry(nchsjetsnotiming,"no-timing","L")
+leg1.Draw()
 
 c2.SaveAs("chsnopu_tight.pdf")
 c2.SaveAs("chsnopu_tight.root")
 
+##c3##
+c3 = ROOT.TCanvas()
+nAK8jetstiming.Draw("HIST")
+nAK8jetsnotiming.Draw("HISTSAME")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nAK8jetstiming,"timing","L")
+leg1.AddEntry(nAK8jetsnotiming,"no-timing","L")
+leg1.Draw()
+
 c3.SaveAs("AK8nopu_tight.pdf")
 c3.SaveAs("AK8nopu_tight.root")
+
+##c4##
+c4 = ROOT.TCanvas()
+npuppijetstiming2.Draw("HIST")
+npuppijetsnotiming2.Draw("HISTSAME")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(npuppijetstiming2,"timing","L")
+leg1.AddEntry(npuppijetsnotiming2,"no-timing","L")
+leg1.Draw()
 
 c4.SaveAs("puppinopu_loose.pdf")
 c4.SaveAs("puppinopu_loose.root")
 
+##c5##
+c5 = ROOT.TCanvas()
+nchsjetstiming2.Draw("HIST")
+nchsjetsnotiming2.Draw("HISTSAME")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nchsjetstiming2,"timing","L")
+leg1.AddEntry(nchsjetsnotiming2,"no-timing","L")
+leg1.Draw()
+
 c5.SaveAs("chsnopu_loose.pdf")
 c5.SaveAs("chsnopu_loose.root")
+
+##c6##
+c6 = ROOT.TCanvas()
+nAK8jetstiming2.Draw("HIST")
+nAK8jetsnotiming2.Draw("HISTSAME")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nAK8jetstiming2,"timing","L")
+leg1.AddEntry(nAK8jetsnotiming2,"no-timing","L")
+leg1.Draw()
 
 c6.SaveAs("AK8nopu_loose.pdf")
 c6.SaveAs("AK8nopu_loose.root")
 
+##c7##
+c7 = c1.DrawClone()
+c7.setLogy()
+c7.SetYTitle("Log(njets)")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(npuppijetstiming,"timing","L")
+leg1.AddEntry(npuppijetsnotiming,"no-timing","L")
+leg1.Draw()
+
 c7.SaveAs("puppinopu_tight_log.pdf")
 c7.SaveAs("puppinopu_tight_log.root")
+
+##c8##
+c8 = c2.DrawClone()
+c8.setLogy()
+c8.SetYTitle("Log(njets)")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nchsjetstiming,"timing","L")
+leg1.AddEntry(nchsjetsnotiming,"no-timing","L")
+leg1.Draw()
 
 c8.SaveAs("chsnopu_tight_log.pdf")
 c8.SaveAs("chsnopu_tight_log.root")
 
+##c9##
+c9 = c4.DrawClone()
+c9.setLogy()
+c9.SetYTitle("Log(njets)")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(npuppijetstiming2,"timing","L")
+leg1.AddEntry(npuppijetsnotiming2,"no-timing","L")
+leg1.Draw()
+
 c9.SaveAs("puppinopu_loose_log.pdf")
 c9.SaveAs("puppinopu_loose_log.root")
 
+##c10##
+c10 = c5.DrawClone()
+c10.setLogy()
+c10.SetYTitle("Log(njets)")
+
+leg1 = ROOT.TLegend(0.7,.5,.89,.85)
+leg1.AddEntry(nchsjetstiming2,"timing","L")
+leg1.AddEntry(nchsjetsnotiming2,"no-timing","L")
+leg1.Draw()
+
 c10.SaveAs("chsnopu_loose_log.pdf")
 c10.SaveAs("chsnopu_loose_log.root")
-
 
 input("Press Enter to continue...")

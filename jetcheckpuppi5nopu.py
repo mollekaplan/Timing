@@ -293,6 +293,7 @@ for event in events:
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
 	    nchs2 += 1
 	    njets2 += 1
+	    chsjetspttiming2.Fill(jet.pt())
             if abs(jet.eta()) < 2.5:
                 nchs += 1
 	        njets += 1
@@ -399,6 +400,7 @@ for event in events2:
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nchs2 += 1
 	    njets2 += 1
+	    chsjetsptnotiming2.Fill(jet.pt())
             if abs(jet.eta()) < 2.5:
                 nchs += 1
 	        njets += 1
@@ -569,5 +571,57 @@ leg10.Draw()
 
 c10.SaveAs("chsnopu_loose_log.pdf")
 c10.SaveAs("chsnopu_loose_log.root")
+
+##c11##
+c11 = ROOT.TCanvas()
+njetstiming.Draw("HIST")
+njetsnotiming.Draw("HISTSAME")
+
+leg11 = ROOT.TLegend(0.7,.5,.89,.85)
+leg11.AddEntry(njetstiming,"timing","L")
+leg11.AddEntry(njetsnotiming,"no-timing","L")
+leg11.Draw()
+
+c11.SaveAs("jetsnopu_tight.pdf")
+c11.SaveAs("jetsnopu_tight.root")
+
+##c12##
+c12 = ROOT.TCanvas()
+njetstiming2.Draw("HIST")
+njetsnotiming2.Draw("HISTSAME")
+
+leg12 = ROOT.TLegend(0.7,.5,.89,.85)
+leg12.AddEntry(njetstiming2,"timing","L")
+leg12.AddEntry(njetsnotiming2,"no-timing","L")
+leg12.Draw()
+
+c12.SaveAs("jetsnopu_loose.pdf")
+c12.SaveAs("jetsnopu_loose.root")
+
+##c13##
+c13 = ROOT.TCanvas()
+chsjetspttiming.Draw("HIST")
+chsjetsptnotiming.Draw("HISTSAME")
+
+leg13 = ROOT.TLegend(0.7,.5,.89,.85)
+leg13.AddEntry(chsjetspttiming,"timing","L")
+leg13.AddEntry(chsjetsptnotiming,"no-timing","L")
+leg13.Draw()
+
+c13.SaveAs("chspt_tight.pdf")
+c13.SaveAs("chspt_tight.root")
+
+##c14##
+c14 = ROOT.TCanvas()
+chsjetspttiming2.Draw("HIST")
+chsjetsptnotiming2.Draw("HISTSAME")
+
+leg14 = ROOT.TLegend(0.7,.5,.89,.85)
+leg14.AddEntry(chsjetspttiming2,"timing","L")
+leg14.AddEntry(chsjetsptnotiming2,"no-timing","L")
+leg14.Draw()
+
+c14.SaveAs("chspt_loose.pdf")
+c14.SaveAs("chspt_loose.root")
 
 input("Press Enter to continue...")

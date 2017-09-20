@@ -218,6 +218,10 @@ chsjetspttiming = ROOT.TH1D("chsjetspttiming","CHS Jets PT",100,0,100)
 chsjetsptnotiming = ROOT.TH1D("chsjetsptnotiming","CHS Jets PT",100,0,100)
 chsjetsptnotiming.SetLineColor(ROOT.kRed)
 
+chsjetspttiming2 = ROOT.TH1D("chsjetspttiming2","CHS Jets PT",100,0,200)
+chsjetsptnotiming2 = ROOT.TH1D("chsjetsptnotiming2","CHS Jets PT",100,0,200)
+chsjetsptnotiming2.SetLineColor(ROOT.kRed)
+
 maxevt = 5000
 
 minjetpt = 30.

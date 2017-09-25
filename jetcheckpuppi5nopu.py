@@ -180,47 +180,47 @@ labelgenjetAK8 = "slimmedGenJetsAK8"
 # Create histograms, etc.
 #ROOT.gROOT.SetBatch()        # don't pop up canvases
 #ROOT.gROOT.SetStyle('Plain') # white background
-#ROOT.gStyle.SetOptStat(0);
+ROOT.gStyle.SetOptStat(0);
 
-njetstiming = ROOT.TH1D("njetstiming","Number of Jets, No Pileup",100,0,100)
-njetsnotiming = ROOT.TH1D("njetsnotiming","Number of Jets, No Pileup",100,0,100)
-njetsnotiming.SetLineColor(ROOT.kRed)
+#njetstiming = ROOT.TH1D("njetstiming","Number of Jets, No Pileup",100,0,100)
+#njetsnotiming = ROOT.TH1D("njetsnotiming","Number of Jets, No Pileup",100,0,100)
+#njetsnotiming.SetLineColor(ROOT.kRed)
 
 npuppijetstiming = ROOT.TH1D("npuppijetstiming","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming = ROOT.TH1D("npuppijetsnotiming","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming.SetLineColor(ROOT.kRed)
 
-nchsjetstiming = ROOT.TH1D("nchsjetstiming","Number of CHS Jets, No Pileup",50,0,100)
-nchsjetsnotiming = ROOT.TH1D("nchsjetsnotiming","Number of CHS Jets, No Pileup",50,0,100)
-nchsjetsnotiming.SetLineColor(ROOT.kRed)
+#nchsjetstiming = ROOT.TH1D("nchsjetstiming","Number of CHS Jets, No Pileup",50,0,100)
+#nchsjetsnotiming = ROOT.TH1D("nchsjetsnotiming","Number of CHS Jets, No Pileup",50,0,100)
+#nchsjetsnotiming.SetLineColor(ROOT.kRed)
 
 nAK8jetstiming = ROOT.TH1D("nAK8jetstiming","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming = ROOT.TH1D("nAK8jetsnotiming","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming.SetLineColor(ROOT.kRed)
 
-njetstiming2 = ROOT.TH1D("njetstiming2","Number of Jets, No Pileup",100,0,100)
-njetsnotiming2 = ROOT.TH1D("njetsnotiming2","Number of Jets, No Pileup",100,0,100)
-njetsnotiming2.SetLineColor(ROOT.kRed)
+#njetstiming2 = ROOT.TH1D("njetstiming2","Number of Jets, No Pileup",100,0,100)
+#njetsnotiming2 = ROOT.TH1D("njetsnotiming2","Number of Jets, No Pileup",100,0,100)
+#njetsnotiming2.SetLineColor(ROOT.kRed)
 
 npuppijetstiming2 = ROOT.TH1D("npuppijetstiming2","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming2 = ROOT.TH1D("npuppijetsnotiming2","Number of Puppi Jets, No Pileup",20,0,20)
 npuppijetsnotiming2.SetLineColor(ROOT.kRed)
 
-nchsjetstiming2 = ROOT.TH1D("nchsjetstiming2","Number of CHS Jets, No Pileup",50,0,100)
-nchsjetsnotiming2 = ROOT.TH1D("nchsjetsnotiming2","Number of CHS Jets, No Pileup",50,0,100)
-nchsjetsnotiming2.SetLineColor(ROOT.kRed)
+#nchsjetstiming2 = ROOT.TH1D("nchsjetstiming2","Number of CHS Jets, No Pileup",100,0,200)
+#nchsjetsnotiming2 = ROOT.TH1D("nchsjetsnotiming2","Number of CHS Jets, No Pileup",100,0,200)
+#nchsjetsnotiming2.SetLineColor(ROOT.kRed)
 
 nAK8jetstiming2 = ROOT.TH1D("nAK8jetstiming2","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming2 = ROOT.TH1D("nAK8jetsnotiming2","Number of AK8 Jets, No Pileup",10,0,10)
 nAK8jetsnotiming2.SetLineColor(ROOT.kRed)
 
-chsjetspttiming = ROOT.TH1D("chsjetspttiming","CHS Jets PT",100,0,100)
-chsjetsptnotiming = ROOT.TH1D("chsjetsptnotiming","CHS Jets PT",100,0,100)
-chsjetsptnotiming.SetLineColor(ROOT.kRed)
+#chsjetspttiming = ROOT.TH1D("chsjetspttiming","CHS Jets PT",100,0,200)
+#chsjetsptnotiming = ROOT.TH1D("chsjetsptnotiming","CHS Jets PT",100,0,200)
+#chsjetsptnotiming.SetLineColor(ROOT.kRed)
 
-chsjetspttiming2 = ROOT.TH1D("chsjetspttiming2","CHS Jets PT",100,0,200)
-chsjetsptnotiming2 = ROOT.TH1D("chsjetsptnotiming2","CHS Jets PT",100,0,200)
-chsjetsptnotiming2.SetLineColor(ROOT.kRed)
+#chsjetspttiming2 = ROOT.TH1D("chsjetspttiming2","CHS Jets PT",100,0,200)
+#chsjetsptnotiming2 = ROOT.TH1D("chsjetsptnotiming2","CHS Jets PT",100,0,200)
+#chsjetsptnotiming2.SetLineColor(ROOT.kRed)
 
 maxevt = 5000
 
@@ -287,25 +287,25 @@ for event in events:
 		njets += 1
     npuppijetstiming.Fill(npuppi)
     npuppijetstiming2.Fill(npuppi2)
-    njetstiming.Fill(njets)
-    njetstiming2.Fill(njets2)
+    #njetstiming.Fill(njets)
+    #njetstiming2.Fill(njets2)
 
-    nchs=0
-    nchs2=0
-    for jet in chsjets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
-        if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
-	    nchs2 += 1
-	    njets2 += 1
-	    chsjetspttiming2.Fill(jet.pt())
-            if abs(jet.eta()) < 2.5:
-                nchs += 1
-	        njets += 1
-		chsjetspttiming.Fill(jet.pt())
-    nchsjetstiming.Fill(nchs)
-    nchsjetstiming2.Fill(nchs2)
-    njetstiming.Fill(njets)
-    njetstiming2.Fill(njets2)
+    #nchs=0
+    #nchs2=0
+    #for jet in chsjets:
+    #    mugenjet = matchgenjetloose(jet,mugenjets)
+    #    if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
+#	    nchs2 += 1
+#	    njets2 += 1
+#	    chsjetspttiming2.Fill(jet.pt())
+#            if abs(jet.eta()) < 2.5:
+#                nchs += 1
+#	        njets += 1
+#		chsjetspttiming.Fill(jet.pt())
+#    nchsjetstiming.Fill(nchs)
+#    nchsjetstiming2.Fill(nchs2)
+#    njetstiming.Fill(njets)
+#    njetstiming2.Fill(njets2)
 
     nAK8=0
     nAK82=0
@@ -319,8 +319,8 @@ for event in events:
 		njets += 1
     nAK8jetstiming.Fill(nAK8)
     nAK8jetstiming2.Fill(nAK82)
-    njetstiming.Fill(njets)
-    njetstiming2.Fill(njets2)
+    #njetstiming.Fill(njets)
+    #njetstiming2.Fill(njets2)
 
     ievt += 1
     if ievt==maxevt:
@@ -394,25 +394,25 @@ for event in events2:
 		njets += 1
     npuppijetsnotiming.Fill(npuppi)
     npuppijetsnotiming2.Fill(npuppi2)
-    njetsnotiming.Fill(njets)
-    njetsnotiming2.Fill(njets2)
+    #njetsnotiming.Fill(njets)
+    #njetsnotiming2.Fill(njets2)
 
-    nchs=0
-    nchs2=0
-    for jet in chsjets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
-        if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
-            nchs2 += 1
-	    njets2 += 1
-	    chsjetsptnotiming2.Fill(jet.pt())
-            if abs(jet.eta()) < 2.5:
-                nchs += 1
-	        njets += 1
-		chsjetsptnotiming.Fill(jet.pt())
-    nchsjetsnotiming.Fill(nchs)
-    nchsjetsnotiming2.Fill(nchs2)
-    njetsnotiming.Fill(njets)
-    njetsnotiming2.Fill(njets2)
+    #nchs=0
+    #nchs2=0
+    #for jet in chsjets:
+    #    mugenjet = matchgenjetloose(jet,mugenjets)
+    #    if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
+    #        nchs2 += 1
+#	    njets2 += 1
+#	    chsjetsptnotiming2.Fill(jet.pt())
+#            if abs(jet.eta()) < 2.5:
+#                nchs += 1
+#	        njets += 1
+#		chsjetsptnotiming.Fill(jet.pt())
+#    nchsjetsnotiming.Fill(nchs)
+#    nchsjetsnotiming2.Fill(nchs2)
+#    njetsnotiming.Fill(njets)
+#    njetsnotiming2.Fill(njets2)
     
     nAK8=0
     nAK82=0
@@ -426,8 +426,8 @@ for event in events2:
 		njets += 1
     nAK8jetsnotiming.Fill(nAK8)
     nAK8jetsnotiming2.Fill(nAK82)
-    njetsnotiming.Fill(njets)
-    njetsnotiming2.Fill(njets2)
+    #njetsnotiming.Fill(njets)
+    #njetsnotiming2.Fill(njets2)
 
 
 
@@ -444,7 +444,7 @@ for event in events2:
 #nAK8jetsnotiming2.Scale(1./float(ievt))
 
 
-####Make canvases and save the plots####
+###Make canvases and save the plots####
 
 ##c1##
 c1 = ROOT.TCanvas()
@@ -460,17 +460,17 @@ c1.SaveAs("puppinopu_tight.pdf")
 c1.SaveAs("puppinopu_tight.root")
 
 ##c2##
-c2 = ROOT.TCanvas()
-nchsjetstiming.Draw("HIST")
-nchsjetsnotiming.Draw("HISTSAME")
+#c2 = ROOT.TCanvas()
+#nchsjetstiming.Draw("HIST")
+#nchsjetsnotiming.Draw("HISTSAME")
 
-leg2 = ROOT.TLegend(0.7,.5,.89,.85)
-leg2.AddEntry(nchsjetstiming,"timing","L")
-leg2.AddEntry(nchsjetsnotiming,"no-timing","L")
-leg2.Draw()
+#leg2 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg2.AddEntry(nchsjetstiming,"timing","L")
+#leg2.AddEntry(nchsjetsnotiming,"no-timing","L")
+#leg2.Draw()
 
-c2.SaveAs("chsnopu_tight.pdf")
-c2.SaveAs("chsnopu_tight.root")
+#c2.SaveAs("chsnopu_tight.pdf")
+#c2.SaveAs("chsnopu_tight.root")
 
 ##c3##
 c3 = ROOT.TCanvas()
@@ -499,17 +499,17 @@ c4.SaveAs("puppinopu_loose.pdf")
 c4.SaveAs("puppinopu_loose.root")
 
 ##c5##
-c5 = ROOT.TCanvas()
-nchsjetstiming2.Draw("HIST")
-nchsjetsnotiming2.Draw("HISTSAME")
+#c5 = ROOT.TCanvas()
+#nchsjetstiming2.Draw("HIST")
+#nchsjetsnotiming2.Draw("HISTSAME")
 
-leg5 = ROOT.TLegend(0.7,.5,.89,.85)
-leg5.AddEntry(nchsjetstiming2,"timing","L")
-leg5.AddEntry(nchsjetsnotiming2,"no-timing","L")
-leg5.Draw()
+#leg5 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg5.AddEntry(nchsjetstiming2,"timing","L")
+#leg5.AddEntry(nchsjetsnotiming2,"no-timing","L")
+#leg5.Draw()
 
-c5.SaveAs("chsnopu_loose.pdf")
-c5.SaveAs("chsnopu_loose.root")
+#c5.SaveAs("chsnopu_loose.pdf")
+#c5.SaveAs("chsnopu_loose.root")
 
 ##c6##
 c6 = ROOT.TCanvas()
@@ -538,17 +538,17 @@ c7.SaveAs("puppinopu_tight_log.pdf")
 c7.SaveAs("puppinopu_tight_log.root")
 
 ##c8##
-c8 = c2.DrawClone()
-c8.SetLogy()
-c8.Draw()
+#c8 = c2.DrawClone()
+#c8.SetLogy()
+#c8.Draw()
 
-leg8 = ROOT.TLegend(0.7,.5,.89,.85)
-leg8.AddEntry(nchsjetstiming,"timing","L")
-leg8.AddEntry(nchsjetsnotiming,"no-timing","L")
-leg8.Draw()
+#leg8 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg8.AddEntry(nchsjetstiming,"timing","L")
+#leg8.AddEntry(nchsjetsnotiming,"no-timing","L")
+#leg8.Draw()
 
-c8.SaveAs("chsnopu_tight_log.pdf")
-c8.SaveAs("chsnopu_tight_log.root")
+#c8.SaveAs("chsnopu_tight_log.pdf")
+#c8.SaveAs("chsnopu_tight_log.root")
 
 ##c9##
 c9 = c4.DrawClone()
@@ -564,68 +564,68 @@ c9.SaveAs("puppinopu_loose_log.pdf")
 c9.SaveAs("puppinopu_loose_log.root")
 
 ##c10##
-c10 = c5.DrawClone()
-c10.SetLogy()
-c10.Draw()
+#c10 = c5.DrawClone()
+#c10.SetLogy()
+#c10.Draw()
 
-leg10 = ROOT.TLegend(0.7,.5,.89,.85)
-leg10.AddEntry(nchsjetstiming2,"timing","L")
-leg10.AddEntry(nchsjetsnotiming2,"no-timing","L")
-leg10.Draw()
+#leg10 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg10.AddEntry(nchsjetstiming2,"timing","L")
+#leg10.AddEntry(nchsjetsnotiming2,"no-timing","L")
+#leg10.Draw()
 
-c10.SaveAs("chsnopu_loose_log.pdf")
-c10.SaveAs("chsnopu_loose_log.root")
+#c10.SaveAs("chsnopu_loose_log.pdf")
+#c10.SaveAs("chsnopu_loose_log.root")
 
 ##c11##
-c11 = ROOT.TCanvas()
-njetstiming.Draw("HIST")
-njetsnotiming.Draw("HISTSAME")
+#c11 = ROOT.TCanvas()
+#njetstiming.Draw("HIST")
+#njetsnotiming.Draw("HISTSAME")
 
-leg11 = ROOT.TLegend(0.7,.5,.89,.85)
-leg11.AddEntry(njetstiming,"timing","L")
-leg11.AddEntry(njetsnotiming,"no-timing","L")
-leg11.Draw()
+#leg11 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg11.AddEntry(njetstiming,"timing","L")
+#leg11.AddEntry(njetsnotiming,"no-timing","L")
+#leg11.Draw()
 
-c11.SaveAs("jetsnopu_tight.pdf")
-c11.SaveAs("jetsnopu_tight.root")
+#c11.SaveAs("jetsnopu_tight.pdf")
+#c11.SaveAs("jetsnopu_tight.root")
 
 ##c12##
-c12 = ROOT.TCanvas()
-njetstiming2.Draw("HIST")
-njetsnotiming2.Draw("HISTSAME")
+#c12 = ROOT.TCanvas()
+#njetstiming2.Draw("HIST")
+#njetsnotiming2.Draw("HISTSAME")
 
-leg12 = ROOT.TLegend(0.7,.5,.89,.85)
-leg12.AddEntry(njetstiming2,"timing","L")
-leg12.AddEntry(njetsnotiming2,"no-timing","L")
-leg12.Draw()
+#leg12 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg12.AddEntry(njetstiming2,"timing","L")
+#leg12.AddEntry(njetsnotiming2,"no-timing","L")
+#leg12.Draw()
 
-c12.SaveAs("jetsnopu_loose.pdf")
-c12.SaveAs("jetsnopu_loose.root")
+#c12.SaveAs("jetsnopu_loose.pdf")
+#c12.SaveAs("jetsnopu_loose.root")
 
 ##c13##
-c13 = ROOT.TCanvas()
-chsjetspttiming.Draw("HIST")
-chsjetsptnotiming.Draw("HISTSAME")
+#c13 = ROOT.TCanvas()
+#chsjetspttiming.Draw("HIST")
+#chsjetsptnotiming.Draw("HISTSAME")
 
-leg13 = ROOT.TLegend(0.7,.5,.89,.85)
-leg13.AddEntry(chsjetspttiming,"timing","L")
-leg13.AddEntry(chsjetsptnotiming,"no-timing","L")
-leg13.Draw()
+#leg13 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg13.AddEntry(chsjetspttiming,"timing","L")
+#leg13.AddEntry(chsjetsptnotiming,"no-timing","L")
+#leg13.Draw()
 
-c13.SaveAs("chspt_tight.pdf")
-c13.SaveAs("chspt_tight.root")
+#c13.SaveAs("chsptnopu_tight.pdf")
+#c13.SaveAs("chsptnopu_tight.root")
 
 ##c14##
-c14 = ROOT.TCanvas()
-chsjetspttiming2.Draw("HIST")
-chsjetsptnotiming2.Draw("HISTSAME")
+#c14 = ROOT.TCanvas()
+#chsjetspttiming2.Draw("HIST")
+#chsjetsptnotiming2.Draw("HISTSAME")
 
-leg14 = ROOT.TLegend(0.7,.5,.89,.85)
-leg14.AddEntry(chsjetspttiming2,"timing","L")
-leg14.AddEntry(chsjetsptnotiming2,"no-timing","L")
-leg14.Draw()
+#leg14 = ROOT.TLegend(0.7,.5,.89,.85)
+#leg14.AddEntry(chsjetspttiming2,"timing","L")
+#leg14.AddEntry(chsjetsptnotiming2,"no-timing","L")
+#leg14.Draw()
 
-c14.SaveAs("chspt_loose.pdf")
-c14.SaveAs("chspt_loose.root")
+#c14.SaveAs("chsptnopu_loose.pdf")
+#c14.SaveAs("chsptnopu_loose.root")
 
 input("Press Enter to continue...")

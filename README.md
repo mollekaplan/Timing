@@ -5,3 +5,5 @@ jetchecktiming2.py - Josh's original code with some additional plots. Interested
 jetchecktiming5.py - code for the jet counting study. The samples used include pileup. Counts number of puppi, CHS, and AK8 jets per event.
 
 jetchecktiming5nopu.py - code for the jet counting study. The samples used do not include pileup. Counts number of puppi, CHS, and AK8 jets per event.
+
+jetchecktiming.py - code for jet counting, including samples with and without timing and with and without pileup

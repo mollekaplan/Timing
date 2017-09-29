@@ -160,38 +160,38 @@ ROOT.gStyle.SetOptStat(0);
 
 ######Hists######
 ##No Pileup Graphs##
-npuppijetstimingnp = ROOT.TH1D("npuppijetstiming","Number of Puppi Jets, No Pileup",20,0,20)
-npuppijetsnotimingnp = ROOT.TH1D("npuppijetsnotiming","Number of Puppi Jets, No Pileup",20,0,20)
+npuppijetstimingnp = ROOT.TH1D("npuppijetstimingnp","Number of Puppi Jets",20,0,20)
+npuppijetsnotimingnp = ROOT.TH1D("npuppijetsnotimingnp","Number of Puppi Jets",20,0,20)
 npuppijetsnotimingnp.SetLineColor(ROOT.kRed)
 
-nAK8jetstimingnp = ROOT.TH1D("nAK8jetstiming","Number of AK8 Jets, No Pileup",10,0,10)
-nAK8jetsnotimingnp = ROOT.TH1D("nAK8jetsnotiming","Number of AK8 Jets, No Pileup",10,0,10)
+nAK8jetstimingnp = ROOT.TH1D("nAK8jetstimingnp","Number of AK8 Jets",10,0,10)
+nAK8jetsnotimingnp = ROOT.TH1D("nAK8jetsnotimingnp","Number of AK8 Jets",10,0,10)
 nAK8jetsnotimingnp.SetLineColor(ROOT.kRed)
 
-npuppijetstimingnp2 = ROOT.TH1D("npuppijetstiming2","Number of Puppi Jets, No Pileup",20,0,20)
-npuppijetsnotimingnp2 = ROOT.TH1D("npuppijetsnotiming2","Number of Puppi Jets, No Pileup",20,0,20)
+npuppijetstimingnp2 = ROOT.TH1D("npuppijetstimingnp2","Number of Puppi Jets",20,0,20)
+npuppijetsnotimingnp2 = ROOT.TH1D("npuppijetsnotimingnp2","Number of Puppi Jets",20,0,20)
 npuppijetsnotimingnp2.SetLineColor(ROOT.kRed)
 
-nAK8jetstimingnp2 = ROOT.TH1D("nAK8jetstiming2","Number of AK8 Jets, No Pileup",10,0,10)
-nAK8jetsnotimingnp2 = ROOT.TH1D("nAK8jetsnotiming2","Number of AK8 Jets, No Pileup",10,0,10)
+nAK8jetstimingnp2 = ROOT.TH1D("nAK8jetstimingnp2","Number of AK8 Jets",10,0,10)
+nAK8jetsnotimingnp2 = ROOT.TH1D("nAK8jetsnotimingnp2","Number of AK8 Jets",10,0,10)
 nAK8jetsnotimingnp2.SetLineColor(ROOT.kRed)
 
 
 ##Pileup Graphs##
-npuppijetstiming = ROOT.TH1D("npuppijetstiming","Number of Puppi Jets, with Pileup",20,0,20)
-npuppijetsnotiming = ROOT.TH1D("npuppijetsnotiming","Number of Puppi Jets, with Pileup",20,0,20)
+npuppijetstiming = ROOT.TH1D("npuppijetstiming","Number of Puppi Jets",20,0,20)
+npuppijetsnotiming = ROOT.TH1D("npuppijetsnotiming","Number of Puppi Jets",20,0,20)
 npuppijetsnotiming.SetLineColor(ROOT.kRed)
 
-nAK8jetstiming = ROOT.TH1D("nAK8jetstiming","Number of AK8 Jets, with Pileup",10,0,10)
-nAK8jetsnotiming = ROOT.TH1D("nAK8jetsnotiming","Number of AK8 Jets, with Pileup",10,0,10)
+nAK8jetstiming = ROOT.TH1D("nAK8jetstiming","Number of AK8 Jets",10,0,10)
+nAK8jetsnotiming = ROOT.TH1D("nAK8jetsnotiming","Number of AK8 Jets",10,0,10)
 nAK8jetsnotiming.SetLineColor(ROOT.kRed)
 
-npuppijetstiming2 = ROOT.TH1D("npuppijetstiming2","Number of Puppi Jets, with Pileup",20,0,20)
-npuppijetsnotiming2 = ROOT.TH1D("npuppijetsnotiming2","Number of Puppi Jets, with Pileup",20,0,20)
+npuppijetstiming2 = ROOT.TH1D("npuppijetstiming2","Number of Puppi Jets",20,0,20)
+npuppijetsnotiming2 = ROOT.TH1D("npuppijetsnotiming2","Number of Puppi Jets",20,0,20)
 npuppijetsnotiming2.SetLineColor(ROOT.kRed)
 
-nAK8jetstiming2 = ROOT.TH1D("nAK8jetstiming2","Number of AK8 Jets, with Pileup",10,0,10)
-nAK8jetsnotiming2 = ROOT.TH1D("nAK8jetsnotiming2","Number of AK8 Jets, with Pileup",10,0,10)
+nAK8jetstiming2 = ROOT.TH1D("nAK8jetstiming2","Number of AK8 Jets",10,0,10)
+nAK8jetsnotiming2 = ROOT.TH1D("nAK8jetsnotiming2","Number of AK8 Jets",10,0,10)
 nAK8jetsnotiming2.SetLineColor(ROOT.kRed)
 
 
@@ -249,13 +249,11 @@ for event in events:
     npuppi=0
     npuppi2=0
     for jet in puppijets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
 	if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
-		njets += 1
     npuppijetstimingnp.Fill(npuppi)
     npuppijetstimingnp2.Fill(npuppi2)
 
@@ -263,13 +261,11 @@ for event in events:
     nAK8=0
     nAK82=0
     for jet in jetsAK8:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
-		njets += 1
     nAK8jetstimingnp.Fill(nAK8)
     nAK8jetstimingnp2.Fill(nAK82)
 
@@ -336,13 +332,11 @@ for event in events2:
     npuppi=0
     npuppi2=0
     for jet in puppijets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
-		njets += 1
     npuppijetsnotimingnp.Fill(npuppi)
     npuppijetsnotimingnp2.Fill(npuppi2)
 	
@@ -350,13 +344,11 @@ for event in events2:
     nAK8=0
     nAK82=0
     for jet in jetsAK8:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
-		njets += 1
     nAK8jetsnotimingnp.Fill(nAK8)
     nAK8jetsnotimingnp2.Fill(nAK82)
 
@@ -424,13 +416,11 @@ for event in events3:
     npuppi=0
     npuppi2=0
     for jet in puppijets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
 	if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
-		njets += 1
     npuppijetstiming.Fill(npuppi)
     npuppijetstiming2.Fill(npuppi2)
 
@@ -438,13 +428,11 @@ for event in events3:
     nAK8=0
     nAK82=0
     for jet in jetsAK8:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
-		njets += 1
     nAK8jetstiming.Fill(nAK8)
     nAK8jetstiming2.Fill(nAK82)
 
@@ -503,13 +491,11 @@ for event in events4:
     npuppi=0
     npuppi2=0
     for jet in puppijets:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             npuppi2 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 npuppi += 1
-		njets += 1
     npuppijetsnotiming.Fill(npuppi)
     npuppijetsnotiming2.Fill(npuppi2)
 	
@@ -517,13 +503,11 @@ for event in events4:
     nAK8=0
     nAK82=0
     for jet in jetsAK8:
-        mugenjet = matchgenjetloose(jet,mugenjets)
+        mugenjet = matchgenjet(jet,mugenjets)
         if abs(jet.eta()) < 4.7 and not mugenjet and jet.pt()>minjetpt:
             nAK82 += 1
-	    njets2 += 1
             if abs(jet.eta()) < 2.5:
                 nAK8 += 1
-		njets += 1
     nAK8jetsnotiming.Fill(nAK8)
     nAK8jetsnotiming2.Fill(nAK82)
 
@@ -704,6 +688,8 @@ c12.SaveAs("puppi_loose_log.root")
 
 ####No pileup vs. pileup, timing####
 ##c13##
+npuppijetstimingnp.SetLineColor(ROOT.kRed)
+
 c13 = ROOT.TCanvas()
 npuppijetstiming.Draw("HIST")
 npuppijetstimingnp.Draw("HISTSAME")
@@ -717,6 +703,8 @@ c13.SaveAs("puppivs_tight.pdf")
 c13.SaveAs("puppivs_tight.root")
 
 ##c14##
+nAK8jetstimingnp.SetLineColor(ROOT.kRed)
+
 c14 = ROOT.TCanvas()
 nAK8jetstiming.Draw("HIST")
 nAK8jetstimingnp.Draw("HISTSAME")
@@ -730,6 +718,8 @@ c14.SaveAs("AK8vs_tight.pdf")
 c14.SaveAs("AK8vs_tight.root")
 
 ##c15##
+npuppijetstimingnp2.SetLineColor(ROOT.kRed)
+
 c15 = ROOT.TCanvas()
 npuppijetstiming2.Draw("HIST")
 npuppijetstimingnp2.Draw("HISTSAME")
@@ -743,6 +733,8 @@ c15.SaveAs("puppivs_loose.pdf")
 c15.SaveAs("puppivs_loose.root")
 
 ##c16##
+nAK8jetstimingnp2.SetLineColor(ROOT.kRed)
+
 c16 = ROOT.TCanvas()
 nAK8jetstiming2.Draw("HIST")
 nAK8jetstimingnp2.Draw("HISTSAME")
@@ -785,6 +777,9 @@ c18.SaveAs("puppivs_loose_log.root")
 
 ####No pileup vs. pileup, no timing####
 ##c19##
+npuppijetsnotiming.SetLineColor(ROOT.kBlue)
+npuppijetsnotimingnp.SetLineColor(ROOT.kRed)
+
 c19 = ROOT.TCanvas()
 npuppijetsnotiming.Draw("HIST")
 npuppijetsnotimingnp.Draw("HISTSAME")
@@ -798,6 +793,9 @@ c19.SaveAs("puppivsnt_tight.pdf")
 c19.SaveAs("puppivsnt_tight.root")
 
 ##c20##
+nAK8jetsnotiming.SetLineColor(ROOT.kBlue)
+nAK8jetsnotimingnp.SetLineColor(ROOT.kRed)
+
 c20 = ROOT.TCanvas()
 nAK8jetsnotiming.Draw("HIST")
 nAK8jetsnotimingnp.Draw("HISTSAME")
@@ -811,6 +809,9 @@ c20.SaveAs("AK8vsnt_tight.pdf")
 c20.SaveAs("AK8vsnt_tight.root")
 
 ##c21##
+npuppijetsnotiming2.SetLineColor(ROOT.kBlue)
+npuppijetsnotimingnp2.SetLineColor(ROOT.kRed)
+
 c21 = ROOT.TCanvas()
 npuppijetsnotiming2.Draw("HIST")
 npuppijetsnotimingnp2.Draw("HISTSAME")
@@ -824,6 +825,9 @@ c21.SaveAs("puppivsnt_loose.pdf")
 c21.SaveAs("puppivsnt_loose.root")
 
 ##c22##
+nAK8jetsnotiming2.SetLineColor(ROOT.kBlue)
+nAK8jetsnotimingnp2.SetLineColor(ROOT.kRed)
+
 c22 = ROOT.TCanvas()
 nAK8jetsnotiming2.Draw("HIST")
 nAK8jetsnotimingnp2.Draw("HISTSAME")

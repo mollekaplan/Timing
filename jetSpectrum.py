@@ -272,7 +272,7 @@ def loop(inputfiles,label="",timingbool=False):
             histos["njets_matched_w_"+label].Fill(njets_matched,info.weight())
             histos["njets2d_w_"+ label].Fill(njets_gen,njets,info.weight())
 	except:
-	    print "puppi jets died :("
+	    print "puppi jets not working"
 	    redo=1
 	    break
 	    
@@ -298,7 +298,7 @@ def loop(inputfiles,label="",timingbool=False):
             histos["njets_chs_matched_"+label].Fill(njets_chs_matched)
             histos["njets_chs_matched_w_"+label].Fill(njets_chs_matched,info.weight())
 	except: 
-	    print "chs jets died :("
+	    print "chs jets not working"
             redo=1
             break
 

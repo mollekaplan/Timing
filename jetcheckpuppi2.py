@@ -79,7 +79,13 @@ nfiles = -1
 #indir = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme/dymm200timing/MINIAODSIM/'
 #indir = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme/dymm200timingmaxeta100/MINIAODSIM/'
 #indir = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme_reminiaod_vtxassign/dymm200timing/MINIAODSIM/'
-indir = '/eos/cms/store/group/upgrade/timing/pfintegration/Sep5jme/dymm200timing/MINIAODSIM/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/PU200_timing/171110_104722/0000/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/NoPU_timing_/171109_155602/0000/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1sigma_PU200_timing/171116_091208/0000/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1p5sigma_PU200_timing/171116_095856/0000/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1sigma_NoPU_timing/171116_091101/0000/'
+#indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1p5sigma_NoPU_timing/171116_095748/0000/'
+indir = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/NoPU_timing_/171109_155602/0000/'
 inputfiles = [indir + filename for filename in os.listdir(indir)[0:nfiles]]
 
 #indir2 = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar22jme_reminiaod_puppimodmore3_alldensitylocal/dymm200notiminggeom/MINIAODSIM/'
@@ -92,7 +98,12 @@ inputfiles = [indir + filename for filename in os.listdir(indir)[0:nfiles]]
 #indir2 = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme/dymm200notiming/MINIAODSIM/'
 #indir2 = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme/dymm200timing/MINIAODSIM/'
 #indir2 = '/eos/cms/store/group/upgrade/timing/pfintegration/Mar31jme_reminiaod_vtxassign/dymm200notiming/MINIAODSIM/'
-indir2 = '/eos/cms/store/group/upgrade/timing/pfintegration/Sep5jme/dymm200notiming/MINIAODSIM/'
+#indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/PU200_notiming/171110_104953/0000/'
+#indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/NoPU_notiming_/171109_155445/0000/'
+#indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1sigma_PU200_notiming/171116_091300/0000/'
+#indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1p5sigma_PU200_notiming/171116_095955/0000/'
+#indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/1p5sigma_NoPU_notiming/171116_095645/0000/'
+indir2 = '/eos/cms/store/group/phys_higgs/cmshmm/amarini/RelValZMM_14/RelValZMM_14/NoPU_notiming_/171109_155445/0000/'
 inputfiles2 = [indir2 + filename for filename in os.listdir(indir2)[0:nfiles]]
 
 
@@ -313,7 +324,7 @@ for event in events:
 		matchedjetetapuppitiming.Fill(jet.eta())
                 
 	    if genjet and abs(jet.eta())<3.:
-                jetresponsetiming.Fill(jet.energy()/genjet.energy())
+                    jetresponsetiming.Fill(jet.energy()/genjet.energy())
             
 	    if not genjet:
 		notmatchedjetetapuppitiming.Fill(jet.eta())
@@ -348,9 +359,10 @@ for event in events:
 
  
     ievt += 1
-    if ievt==maxevt:
-        break;
+    #if ievt==maxevt:
+    #    break;
 
+print(ievt)
 
 jetetachstiming.Scale(1./float(ievt))
 jetetapuppitiming.Scale(1./float(ievt))
@@ -498,120 +510,132 @@ matchnotiming.Scale(1./float(ievt))
 genjetnotiming.Scale(1./float(ievt))
 notmatchedjetetapuppinotiming.Scale(1./float(ievt))
 
-c1 = ROOT.TCanvas()
-jetetachsnotiming.Draw("HIST")
-jetetachstiming.Draw("HISTSAME")
-c1.SaveAs("jetetachs.pdf")
+#c1 = ROOT.TCanvas()
+#jetetachsnotiming.Draw("HIST")
+#jetetachstiming.Draw("HISTSAME")
+#c1.SaveAs("jetetachs.pdf")
 
-c2 = ROOT.TCanvas()
-jetetapuppinotiming.Draw("HIST")
-jetetapuppitiming.Draw("HISTSAME")
-c2.SaveAs("jetetapuppi.pdf")    
+#c2 = ROOT.TCanvas()
+#jetetapuppinotiming.Draw("HIST")
+#jetetapuppitiming.Draw("HISTSAME")
+#c2.SaveAs("jetetapuppi.pdf")    
 
 c3 = ROOT.TCanvas()
 matchedjetetapuppinotiming.Draw("HIST")
 matchedjetetapuppitiming.Draw("HISTSAME")    
+
+leg3 = ROOT.TLegend(0.4,.8,.6,.9)
+leg3.AddEntry(matchedjetetapuppitiming,"timing","L")
+leg3.AddEntry(matchedjetetapuppinotiming,"no-timing","L")
+leg3.Draw()
+
 c3.SaveAs("matchedjetetapuppi.pdf")
 c3.SaveAs("matchedjetetapuppi.root")
 
 c4 = ROOT.TCanvas()
 unmatchedjetetapuppinotiming.Draw("HIST")
 unmatchedjetetapuppitiming.Draw("HISTSAME")
+
+leg4 = ROOT.TLegend(0.4,.8,.6,.9)
+leg4.AddEntry(unmatchedjetetapuppitiming,"timing","L")
+leg4.AddEntry(unmatchedjetetapuppinotiming,"no-timing","L")
+leg4.Draw()
+
 c4.SaveAs("unmatchedjetetapuppi.pdf")
 c4.SaveAs("unmatchedjetetapuppi.root")
 
-c4a = ROOT.TCanvas()
-unmatchedjetptpuppinotiming.Draw("HIST")
-unmatchedjetptpuppitiming.Draw("HISTSAME")
-c4a.SaveAs("unmatchedjetptpuppi.pdf")
-c4a.SaveAs("unmatchedjetptpuppi.root")
+#c4a = ROOT.TCanvas()
+#unmatchedjetptpuppinotiming.Draw("HIST")
+#unmatchedjetptpuppitiming.Draw("HISTSAME")
+#c4a.SaveAs("unmatchedjetptpuppi.pdf")
+#c4a.SaveAs("unmatchedjetptpuppi.root")
 
 #c4a = ROOT.TCanvas()
 #unmatchedjetmetapuppinotiming.Draw("HIST")
 #unmatchedjetmetapuppitiming.Draw("HISTSAME")
 
-matchedpuppiratio = matchedjetetapuppitiming.Clone()
-matchedpuppiratio.Divide(matchedjetetapuppinotiming)
+#matchedpuppiratio = matchedjetetapuppitiming.Clone()
+#matchedpuppiratio.Divide(matchedjetetapuppinotiming)
 
-c5 = ROOT.TCanvas()
-matchedpuppiratio.Draw("HIST")
-c5.SaveAs("matchedpuppiratio.pdf")
-c5.SaveAs("matchedpuppiratio.root")
+#c5 = ROOT.TCanvas()
+#matchedpuppiratio.Draw("HIST")
+#c5.SaveAs("matchedpuppiratio.pdf")
+#c5.SaveAs("matchedpuppiratio.root")
 
-unmatchedpuppiratio = unmatchedjetetapuppitiming.Clone()
-unmatchedpuppiratio.Divide(unmatchedjetetapuppinotiming)
+#unmatchedpuppiratio = unmatchedjetetapuppitiming.Clone()
+#unmatchedpuppiratio.Divide(unmatchedjetetapuppinotiming)
 
-c6 = ROOT.TCanvas()
-unmatchedpuppiratio.Draw()
-c6.SaveAs("unmatchedpuppiratio.pdf")
-c6.SaveAs("unmatchedpuppiratio.root")
+#c6 = ROOT.TCanvas()
+#unmatchedpuppiratio.Draw()
+#c6.SaveAs("unmatchedpuppiratio.pdf")
+#c6.SaveAs("unmatchedpuppiratio.root")
 
-c7 = ROOT.TCanvas()
-candetanotiming.Draw("HIST")
-candetatiming.Draw("HISTSAME")
-c7.SaveAs("candeta.pdf")
-c7.SaveAs("candeta.root")
+#c7 = ROOT.TCanvas()
+#candetanotiming.Draw("HIST")
+#candetatiming.Draw("HISTSAME")
+#c7.SaveAs("candeta.pdf")
+#c7.SaveAs("candeta.root")
 
-c7a = ROOT.TCanvas()
-candetanotimingsimple.Draw("HIST")
-candetatimingsimple.Draw("HISTSAME")
-c7a.SaveAs("candetasimple.pdf")
-c7a.SaveAs("candetasimple.root")
+#c7a = ROOT.TCanvas()
+#candetanotimingsimple.Draw("HIST")
+#candetatimingsimple.Draw("HISTSAME")
+#c7a.SaveAs("candetasimple.pdf")
+#c7a.SaveAs("candetasimple.root")
 
-c7b = ROOT.TCanvas()
-candetanotimingsimplemod = candetanotimingsimple.Clone()
-candetanotimingsimplemod.SetLineColor(ROOT.kBlue)
-candetanotiming.Draw("HIST")
-candetanotimingsimplemod.Draw("HISTSAME")
+#c7b = ROOT.TCanvas()
+#candetanotimingsimplemod = candetanotimingsimple.Clone()
+#candetanotimingsimplemod.SetLineColor(ROOT.kBlue)
+#candetanotiming.Draw("HIST")
+#candetanotimingsimplemod.Draw("HISTSAME")
 
-c7d = ROOT.TCanvas()
-candetapuppinotiming.Draw("HIST")
-candetapuppitiming.Draw("HISTSAME")
-c7d.SaveAs("candetapuppi.pdf")
-c7d.SaveAs("candetapuppi.root")
+#c7d = ROOT.TCanvas()
+#candetapuppinotiming.Draw("HIST")
+#candetapuppitiming.Draw("HISTSAME")
+#c7d.SaveAs("candetapuppi.pdf")
+#c7d.SaveAs("candetapuppi.root")
 
-c8 = ROOT.TCanvas()
-jetresponsetiming.Draw("HIST")
-jetresponsenotiming.Draw("HISTSAME")
-c8.SaveAs("jetresponse.pdf")
-c8.SaveAs("jetresponse.root")
+#c8 = ROOT.TCanvas()
+#jetresponsetiming.Draw("HIST")
+#jetresponsenotiming.Draw("HISTSAME")
+#c8.SaveAs("jetresponse.pdf")
+#c8.SaveAs("jetresponse.root")
 
-c9 = ROOT.TCanvas()
-genjettiming.Draw("HIST")
-genjetnotiming.Draw("HISTSAME")
-c9.SaveAs("denom.pdf")
-c9.SaveAs("denom.root")
+#c9 = ROOT.TCanvas()
+#genjettiming.Draw("HIST")
+#genjetnotiming.Draw("HISTSAME")
+#c9.SaveAs("denom.pdf")
+#c9.SaveAs("denom.root")
 
-c10 = ROOT.TCanvas()
-matchtiming.Draw("HIST")
-matchnotiming.Draw("HISTSAME")
-c10.SaveAs("num.pdf")
-c10.SaveAs("num.root")
+#c10 = ROOT.TCanvas()
+#matchtiming.Draw("HIST")
+#matchnotiming.Draw("HISTSAME")
+#c10.SaveAs("num.pdf")
+#c10.SaveAs("num.root")
 
-efficiencytiming = matchtiming.Clone()
-efficiencytiming.Divide(genjettiming)
+#efficiencytiming = matchtiming.Clone()
+#efficiencytiming.Divide(genjettiming)
 
-efficiencynotiming = matchnotiming.Clone()
-efficiencynotiming.Divide(genjetnotiming)
+#efficiencynotiming = matchnotiming.Clone()
+#efficiencynotiming.Divide(genjetnotiming)
 
-c11 = ROOT.TCanvas()
-efficiencytiming.Draw("HIST")
-efficiencynotiming.Draw("HISTSAME")
-c11.SaveAs("efficiency.pdf")
-c11.SaveAs("efficiency.root")
+#c11 = ROOT.TCanvas()
+#efficiencytiming.Draw("HIST")
+#efficiencynotiming.Draw("HISTSAME")
+#c11.SaveAs("efficiency.pdf")
+#c11.SaveAs("efficiency.root")
 
-c12 = ROOT.TCanvas()
-notmatchedjetetapuppinotiming.Draw("HIST")
-notmatchedjetetapuppitiming.Draw("HISTSAME")
-c12.SaveAs("notmatched.pdf")
-c12.SaveAs("notmatched.root")
+#c12 = ROOT.TCanvas()
+#notmatchedjetetapuppinotiming.Draw("HIST")
+#notmatchedjetetapuppitiming.Draw("HISTSAME")
+#c12.SaveAs("notmatched.pdf")
+#c12.SaveAs("notmatched.root")
 
-notmatchedratio = notmatchedjetetapuppitiming.Clone()
-notmatchedratio.Divide(notmatchedjetetapuppinotiming)
+#notmatchedratio = notmatchedjetetapuppitiming.Clone()
+#notmatchedratio.Divide(notmatchedjetetapuppinotiming)
 
-c13 = ROOT.TCanvas()
-notmatchedratio.Draw()
-c13.SaveAs("notmatchedratio.pdf")
-c13.SaveAs("notmatchedratio.root")
+#c13 = ROOT.TCanvas()
+#notmatchedratio.Draw()
+#c13.SaveAs("notmatchedratio.pdf")
+#c13.SaveAs("notmatchedratio.root")
 
 input("Press Enter to continue...")

@@ -164,6 +164,12 @@ def loop(inputfiles,label):
 
     # loop over events
     ievt=0
+    roc['eff_eta1_'+label]=0.
+    roc['fake_eta1_'+label]=0.
+    roc['eff_eta2_'+label]=0.
+    roc['fake_eta2_'+label]=0.
+    roc['eff_eta3_'+label]=0.
+    roc['fake_eta3_'+label]=0.
     roc['eff_'+label]=0.
     roc['fake_'+label]=0.
     for event in events:
@@ -224,55 +230,43 @@ def loop(inputfiles,label):
 
 		redo=0
 	        if genjet:
-		    try:
-		        if abs(jet.eta())<1.44: 
-			    histos['matched_eta1_'+label].Fill(abs(jet.eta()))
-			    roc['eff_'+label]+=1.
-		        if abs(jet.eta())>1.44 and abs(jet.eta())<2.5: histos['matched_eta2_'+label].Fill(abs(jet.eta()))
-		        if abs(jet.eta())>2.5 and abs(jet.eta())<5: histos['matched_eta3_'+label].Fill(abs(jet.eta()))
-		    except:
-			print("matched broke :(")
-			redo=1
-			break
-
+		    if abs(jet.eta())<1.44: 
+			histos['matched_eta1_'+label].Fill(abs(jet.eta()))
+			roc['eff_eta1_'+label]+=1.
+		    if abs(jet.eta())>1.44 and abs(jet.eta())<2.5: 
+			histos['matched_eta2_'+label].Fill(abs(jet.eta()))
+			roc['eff_eta2_'+label]+=1.
+		    if abs(jet.eta())>2.5 and abs(jet.eta())<5: 
+			histos['matched_eta3_'+label].Fill(abs(jet.eta()))
+			roc['eff_eta3_'+label]+=1.
+		    if abs(jet.eta())<5:
+			roc['eff_tot_'+label]+=1.
+			
 	        if ispu:
-		    try:
-		        if abs(jet.eta())<1.44: 
-			    histos['unmatched_eta1_'+label].Fill(abs(jet.eta()))
-			    roc['fake_'+label]+=1.
-		        if abs(jet.eta())>1.44 and abs(jet.eta())<2.5: histos['unmatched_eta2_'+label].Fill(abs(jet.eta()))
-		        if abs(jet.eta())>2.5 and abs(jet.eta())<5: histos['unmatched_eta3_'+label].Fill(abs(jet.eta()))
-		    except:
-			print("unmatched broke :(")
-                        redo=1
-                        break
+		    if abs(jet.eta())<1.44: 
+			histos['unmatched_eta1_'+label].Fill(abs(jet.eta()))
+			roc['fake_eta1_'+label]+=1.
+		    if abs(jet.eta())>1.44 and abs(jet.eta())<2.5: 
+			histos['unmatched_eta2_'+label].Fill(abs(jet.eta()))
+			roc['fake_eta2_'+label]+=1.
+		    if abs(jet.eta())>2.5 and abs(jet.eta())<5: 
+			histos['unmatched_eta3_'+label].Fill(abs(jet.eta()))
+			roc['fake_eta3_'+label]+=1.
+		    if abs(jet.eta())<5:
+			roc['fake_tot_'+label]+=1.
 
         ievt += 1
         if ievt==maxevt:
             break;
- 
-
-    if redo==1:
-	redo = 0	
-	loop(inputfiles,label)
-
-    print(ievt)
 
     try:
-        histos['matched_eta1_'+label].Scale(1./float(ievt))
-        histos['matched_eta2_'+label].Scale(1./float(ievt))
-        histos['matched_eta3_'+label].Scale(1./float(ievt))
+    histos['matched_eta1_'+label].Scale(1./float(ievt))
+    histos['matched_eta2_'+label].Scale(1./float(ievt))
+    histos['matched_eta3_'+label].Scale(1./float(ievt))
 	
-        histos['unmatched_eta1_'+label].Scale(1./float(ievt))
-        histos['unmatched_eta2_'+label].Scale(1./float(ievt))
-        histos['unmatched_eta3_'+label].Scale(1./float(ievt))
-    except:
-    	print("unmatched broke :(")
-        redo=1
-
-    if redo==1:
-        redo = 0
-        loop(inputfiles,label)
+    histos['unmatched_eta1_'+label].Scale(1./float(ievt))
+    histos['unmatched_eta2_'+label].Scale(1./float(ievt))
+    histos['unmatched_eta3_'+label].Scale(1./float(ievt))
 
     print(roc)
 
@@ -302,32 +296,39 @@ for eta in ["eta1","eta2","eta3"]:
 	ratio['fake_2sigma_'+eta+'_'+timing].Divide(histos['matched_'+eta+'_'+'NoPU'+'_'+timing+'_'])
  
 
-efflist=[]
-fakelist=[]
-for timing in ['timing','notiming']:
+for eta in ['eta1','eta2','eta3','tot']:
     for sig in ['1sigma','1p5sigma']:
-        efflist.append(roc['eff_'+sig+'_PU200_'+timing]/roc['eff_'+sig+'_NoPU_'+timing])
-	fakelist.append(roc['fake_'+sig+'_PU200_'+timing]/roc['eff_'+sig+'_NoPU_'+timing])
+        efflist_t.append(roc['eff_'+eta+'_'+sig+'_PU200_timing']/roc['eff_'+eta+'_'+sig+'_NoPU_timing'])
+        fakelist_t.append(roc['fake_'+eta+'_'+sig+'_PU200_timing']/roc['eff_'+eta+'_'+sig+'_NoPU_timing'])
+        efflist_nt.append(roc['eff_'+eta+'_'+sig+'_PU200_notiming']/roc['eff_'+eta+'_'+sig+'_NoPU_notiming'])
+        fakelist_nt.append(roc['fake_'+eta+'_'+sig+'_PU200_notiming']/roc['eff_'+eta+'_'+sig+'_NoPU_notiming'])
 
-    efflist.append(roc['eff_PU200_'+timing]/roc['eff_NoPU_'+timing+'_'])
-    fakelist.append(roc['fake_PU200_'+timing]/roc['eff_NoPU_'+timing+'_'])
+    efflist_t.append(roc['eff_'+eta+'_PU200_timing']/roc['eff_'+eta+'_NoPU_timing_'])
+    fakelist_t.append(roc['fake_'+eta+'_PU200_timing']/roc['eff_'+eta+'_NoPU_timing_'])
+    efflist_nt.append(roc['eff_'+eta+'_PU200_notiming']/roc['eff_'+eta+'_NoPU_notiming_'])
+    fakelist_nt.append(roc['fake_'+eta+'_PU200_notiming']/roc['eff_'+eta+'_NoPU_notiming_'])
 
-efflist_t=[]
-fakelist_t=[]
-for i in range(0,3): 
-    efflist_t.append(efflist[i])
-    fakelist_t.append(fakelist[i])
+et1=array.array('d',efflist_t[0:3])
+ft1=array.array('d',fakelist_t[0:3])
+ent1=array.array('d',efflist_nt[0:3])
+fnt1=array.array('d',fakelist_nt[0:3])
 
-efflist_nt=[]
-fakelist_nt=[]
-for i in range(3,6): 
-    efflist_nt.append(efflist[i])
-    fakelist_nt.append(fakelist[i])
+et2=array.array('d',efflist_t[3:6])
+ft2=array.array('d',fakelist_t[3:6])
+ent2=array.array('d',efflist_nt[3:6])
+fnt2=array.array('d',fakelist_nt[3:6])
 
-et=array.array('d',efflist_t)
-ft=array.array('d',fakelist_t)
-ent=array.array('d',efflist_nt)
-fnt=array.array('d',fakelist_nt)
+et3=array.array('d',efflist_t[6:9])
+ft3=array.array('d',fakelist_t[6:9])
+ent3=array.array('d',efflist_nt[6:9])
+fnt3=array.array('d',fakelist_nt[6:9])
+
+ettot=array.array('d',efflist_t[9:12])
+fttot=array.array('d',fakelist_t[9:12])
+enttot=array.array('d',efflist_nt[9:12])
+fnttot=array.array('d',fakelist_nt[9:12])
+
+
 ##NEED TO MAKE CANVASES, then done (after ROC)
 canvas={}
 count=1
@@ -351,32 +352,130 @@ for eta in ["eta1","eta2","eta3"]:
 	
 	    count += 1
 
+##Will clean up and make loop later
+##eta1##
 canvas['c'+str(count)] = ROOT.TCanvas()
-roc_t = ROOT.TGraph(3,et,ft)
-roc_nt = ROOT.TGraph(3,ent,fnt)
-roc_nt.SetLineColor(2)
-roc_t.SetLineColor(4)
-roc_t.SetMarkerColor(1)
-roc_nt.SetMarkerColor(1)
-roc_t.SetMarkerSize(2)
-roc_nt.SetMarkerSize(2)
-roc_t.SetMarkerStyle(3)
-roc_nt.SetMarkerStyle(3)
+roc_t1 = ROOT.TGraph(3,et1,ft1)
+roc_nt1 = ROOT.TGraph(3,ent1,fnt1)
+roc_nt1.SetLineColor(2)
+roc_t1.SetLineColor(4)
+roc_t1.SetMarkerColor(1)
+roc_nt1.SetMarkerColor(1)
+roc_t1.SetMarkerSize(2)
+roc_nt1.SetMarkerSize(2)
+roc_t1.SetMarkerStyle(3)
+roc_nt1.SetMarkerStyle(3)
 
-mg=ROOT.TMultiGraph()
-mg.Add(roc_nt)
-mg.Add(roc_t)
-mg.Draw("ACP")
+mg1=ROOT.TMultiGraph()
+mg1.Add(roc_nt1)
+mg1.Add(roc_t1)
+mg1.Draw("ACP")
 
-leg = ROOT.TLegend(0.8,.8,.9,.9)
-leg.AddEntry(roc_t,"Timing","L")
-leg.AddEntry(roc_nt,"No Timing","L")
-leg.Draw()
+leg1 = ROOT.TLegend(0.7,.8,.9,.9)
+leg1.AddEntry(roc_t1,"Timing","L")
+leg1.AddEntry(roc_nt1,"No Timing","L")
+leg1.Draw()
 
-mg.GetXaxis().SetTitle("Efficiency")
-mg.GetYaxis().SetTitle("Rejection")
+mg1.GetXaxis().SetTitle("Efficiency")
+mg1.GetYaxis().SetTitle("Rejection")
 
-canvas['c'+str(count)].SaveAs('roc.pdf')
-canvas['c'+str(count)].SaveAs('roc.root')
+canvas['c'+str(count)].SaveAs('roc1.pdf')
+canvas['c'+str(count)].SaveAs('roc1.root')
 
+count +=1
+
+##eta2##
+canvas['c'+str(count)] = ROOT.TCanvas()
+roc_t2 = ROOT.TGraph(3,et2,ft2)
+roc_nt2 = ROOT.TGraph(3,ent2,fnt2)
+roc_nt2.SetLineColor(2)
+roc_t2.SetLineColor(4)
+roc_t2.SetMarkerColor(1)
+roc_nt2.SetMarkerColor(1)
+roc_t2.SetMarkerSize(2)
+roc_nt2.SetMarkerSize(2)
+roc_t2.SetMarkerStyle(3)
+roc_nt2.SetMarkerStyle(3)
+
+mg2=ROOT.TMultiGraph()
+mg2.Add(roc_nt2)
+mg2.Add(roc_t2)
+mg2.Draw("ACP")
+
+leg2 = ROOT.TLegend(0.7,.8,.9,.9)
+leg2.AddEntry(roc_t2,"Timing","L")
+leg2.AddEntry(roc_nt2,"No Timing","L")
+leg2.Draw()
+
+mg2.GetXaxis().SetTitle("Efficiency")
+mg2.GetYaxis().SetTitle("Rejection")
+
+canvas['c'+str(count)].SaveAs('roc2.pdf')
+canvas['c'+str(count)].SaveAs('roc2.root')
+
+count +=1
+
+
+##eta3##
+canvas['c'+str(count)] = ROOT.TCanvas()
+roc_t3 = ROOT.TGraph(3,et3,ft3)
+roc_nt3 = ROOT.TGraph(3,ent3,fnt3)
+roc_nt3.SetLineColor(2)
+roc_t3.SetLineColor(4)
+roc_t3.SetMarkerColor(1)
+roc_nt3.SetMarkerColor(1)
+roc_t3.SetMarkerSize(2)
+roc_nt3.SetMarkerSize(2)
+roc_t3.SetMarkerStyle(3)
+roc_nt3.SetMarkerStyle(3)
+
+mg3=ROOT.TMultiGraph()
+mg3.Add(roc_nt3)
+mg3.Add(roc_t3)
+mg3.Draw("ACP")
+
+leg3 = ROOT.TLegend(0.7,.8,.9,.9)
+leg3.AddEntry(roc_t3,"Timing","L")
+leg3.AddEntry(roc_nt3,"No Timing","L")
+leg3.Draw()
+
+mg3.GetXaxis().SetTitle("Efficiency")
+mg3.GetYaxis().SetTitle("Rejection")
+
+canvas['c'+str(count)].SaveAs('roc3.pdf')
+canvas['c'+str(count)].SaveAs('roc3.root')
+
+count +=1
+
+
+##tot##
+canvas['c'+str(count)] = ROOT.TCanvas()
+roc_ttot = ROOT.TGraph(3,ettot,fttot)
+roc_nttot = ROOT.TGraph(3,enttot,fnttot)
+roc_nttot.SetLineColor(2)
+roc_ttot.SetLineColor(4)
+roc_ttot.SetMarkerColor(1)
+roc_nttot.SetMarkerColor(1)
+roc_ttot.SetMarkerSize(2)
+roc_nttot.SetMarkerSize(2)
+roc_ttot.SetMarkerStyle(3)
+roc_nttot.SetMarkerStyle(3)
+
+mgtot=ROOT.TMultiGraph()
+mgtot.Add(roc_nttot)
+mgtot.Add(roc_ttot)
+mgtot.Draw("ACP")
+
+legtot = ROOT.TLegend(0.7,.8,.9,.9)
+legtot.AddEntry(roc_ttot,"Timing","L")
+legtot.AddEntry(roc_nttot,"No Timing","L")
+legtot.Draw()
+
+mgtot.GetXaxis().SetTitle("Efficiency")
+mgtot.GetYaxis().SetTitle("Rejection")
+
+canvas['c'+str(count)].SaveAs('roctot.pdf')
+canvas['c'+str(count)].SaveAs('roctot.root')
+
+count +=1
 input("Press Enter to continue...")
